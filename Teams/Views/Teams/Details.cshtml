@@ -1,0 +1,57 @@
+﻿@model WebApp.ViewModels.TeamDetailsViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    </br>
+    @Html.ActionLink("Back to teams list", "TeamsList")
+
+    <h2><b>@Model.Name</b></h2>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Members:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model.teamPlayers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => player.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.unassignedPlayers.Count() > 0)
+    {
+    <div class="panel panel-default" style="width: 30%;">
+        <div class="panel-heading">Add member to this team:</div>
+        <div class="panel-body">
+            @using (Html.BeginForm("AddPlayerToTeam", "Teams", FormMethod.Post))
+            {
+                <input type="hidden" name="teamId" value="@Model.Id" />
+                @Html.DropDownListFor(m => m.selectedPlayerId, new SelectList(Model.unassignedPlayers, "Id", "Name"), new { @class = "form-control" })
+                <br></br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            }
+        </div>
+    </div>
+    }
+
+
+    </br>
+    </br>
+
+</body>
+</html>

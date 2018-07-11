@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Common.Models.Team>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home - Teams</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Teams list:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Teams" , new { id=item.Id }) 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
